@@ -29,7 +29,7 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List:
         
         for channel in channels:
             grade = channel.find(attrs={'class': 'tag cte_all'}).string
-            KMRB = '전체관람가' if grade == 'ALL' else '12세이상관람가' if grade == '12' else '15세이상관람가' if grade == '15' else '청소년관람불가' if grade == '19' else Null
+            KMRB = '전체관람가' if grade == 'ALL' else '12세이상관람가' if grade == '12' else '15세이상관람가' if grade == '15' else '청소년관람불가' if grade == '19' else None
 
             programFullTitle = p_fullTitle.match(channel.find('td', attrs={'class': 'txtL'}).text.strip()).group()
             programTitle = p_title.search(programFullTitle).group().strip()
