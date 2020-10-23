@@ -8,6 +8,8 @@ import re
 def GetEPGFromLGU(serviceId: str, period: int) -> List:
     """
     LGU에서 ServiceId에 해당하는 채널의 EPG를 받아옵니다.
+    TODO: 회차 정보 담기
+    TODO: 주석 업데이트
     """
 
     URL = 'http://www.uplus.co.kr/css/chgi/chgi/RetrieveTvSchedule.hpi'
