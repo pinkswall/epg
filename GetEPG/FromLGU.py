@@ -11,16 +11,15 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List:
     @return [
         {
             'programTitle': '프로그램 이름',
-            'subtitle': '부제목',
+            'subtitle': '부제목' | None,
             'category': '카테고리',
-            'startTime': 'HH:MM',
+            'startTime': 'YYYYMMDDhhmmss',
+            'episode': 'n회' | None
             'isRebroadcast': True | False,
-            'KMRB': '전체관람가' | '12세이상관람가' | '15세이상관람가' | '청소년관람불가'
+            'KMRB': '전체관람가' | '12세이상관람가' | '15세이상관람가' | '청소년관람불가' | None
         }
     ] \n
-    @request_count: period \n
-    TODO: 회차 정보 담기\n
-    TODO: startTime형식 HH:MM -> YYYYMMDDhhmmss으로 변경
+    @request_count: period
     """
 
     URL = 'http://www.uplus.co.kr/css/chgi/chgi/RetrieveTvSchedule.hpi'
@@ -30,6 +29,7 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List:
     p_title = re.compile(r'^[^[|^(^<]+')
     p_subtitle = re.compile(r'(?<=\[).+(?=\])')
     p_rebroadcast = re.compile(r'<재>')
+    p_episode = re.compile(r'(\d+(?=회))')
 
     today = date.today()
     result = []
@@ -47,12 +47,14 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List:
             programTitle = p_title.search(programFullTitle).group().strip()
             subtitle = p_subtitle.search(programFullTitle).group().strip() if p_subtitle.search(programFullTitle) else None
             is_rebroadcast = True if p_rebroadcast.search(programFullTitle) else False
+            episode = p_episode.search(programFullTitle).group().strip() if p_episode.search(programFullTitle) else None
 
             result.append({
                 'programTitle': programTitle,
                 'subtitle': subtitle,
                 'category': channel.find(attrs={'class': 'txtC hidden-xs'}).string.strip(),
                 'startTime': datetime.strptime(str(target_day) + ' ' + channel.find(attrs={'class': 'txtC'}).string.strip(), '%Y-%m-%d %H:%M').strftime('%Y%m%d%H%M%S'),
+                'episode': episode,
                 'isRebroadcast': is_rebroadcast,
                 'KMRB': KMRB
             })
