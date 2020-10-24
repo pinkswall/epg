@@ -7,7 +7,7 @@ def DumpChannelsFromNAVER():
   네이버에서 제공하는 EPG의 채널 목록을 파싱합니다. \n
   @return [ 
     {
-      'NAVER Name': '채널이름',
+      'Name': '채널이름',
       'Source': 'NAVER',
       'ServiceId': '서비스ID'
     }
@@ -42,7 +42,7 @@ def DumpChannelsFromNAVER():
       ch_name = channel.find('div', attrs={'class': "channel_name"}).string
       ch_id = channel.find('div', attrs={'class': "u_likeit_list_module _reactionModule zzim"})['data-cid']
       result.append({
-        'NAVER Name': str(ch_name),
+        'Name': str(ch_name),
         'Source': 'NAVER',
         'ServiceId': ch_id
       })

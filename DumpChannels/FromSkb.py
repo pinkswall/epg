@@ -6,8 +6,8 @@ def DumpChannelsFromSKB():
   SKB에서 제공하는 EPG의 채널 목록을 파싱합니다. \n
   @return [
     {
-      'SKB Name': '채널이름', 
-      'SKBCh': 채널번호,
+      'Name': '채널이름', 
+      'Ch': 채널번호,
       'Source': 'SKB',
       'ServiceId': '서비스ID'
     }
@@ -35,8 +35,8 @@ def DumpChannelsFromSKB():
     ch_no = channel['ch_no']
     ch_id = channel['c_menu']
     result.append({
-      'SKB Name': ch_name,
-      'SKBCh': int(ch_no),
+      'Name': ch_name,
+      'Ch': int(ch_no),
       'Source': 'SKB',
       'ServiceId': ch_id
     })

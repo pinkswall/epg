@@ -8,7 +8,7 @@ def DumpChannelsFromTVING():
   현재부터 3시간 지난 시점까지 EPG가 존재하는 채널만 해당됩니다. \n
   @return [
     {
-      'TVING Name': '채널이름', 
+      'Name': '채널이름', 
       'Icon_url': 'https://ddns/path/to/icon',
       'Source': 'TVING',
       'ServiceId': '서비스ID'
@@ -75,7 +75,7 @@ def DumpChannelsFromTVING():
         break
 
     result.append({
-      'TVING Name': channel['channel_name']['ko'],
+      'Name': channel['channel_name']['ko'],
       'Icon_url': ch_img,
       'Source': 'TVING',
       'ServiceId': channel['channel_code']

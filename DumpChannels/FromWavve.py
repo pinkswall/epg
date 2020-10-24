@@ -8,7 +8,7 @@ def DumpChannelsFromWAVVE():
   오늘 날짜로 제공되는 EPG만 해당됩니다. \n
   @return [
     {
-      'WAVVE Name': '채널이름',
+      'Name': '채널이름',
       'Icon_url': 'https://ddns/path/to/icon',
       'Source': 'WAVVE',
       'ServiceId': '서비스ID'
@@ -43,7 +43,7 @@ def DumpChannelsFromWAVVE():
     ch_id = channel['channelid']
     ch_icon = 'https://' + channel['channelimage']
     result.append({
-      'WAVVE Name': ch_name,
+      'Name': ch_name,
       'Icon_url': ch_icon,
       'Source': 'WAVVE',
       'ServiceId': ch_id

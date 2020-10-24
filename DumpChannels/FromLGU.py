@@ -8,8 +8,8 @@ def DumpChannelsFromLGU():
   LGU에서 제공하는 EPG의 채널 목록을 파싱합니다. \n
   @return [ 
     {
-      'LGU Name': '채널이름',
-      'LGUCh': 채널번호,
+      'Name': '채널이름',
+      'Ch': 채널번호,
       'Source': 'LG',
       'ServiceId': '서비스ID'
     }
@@ -54,8 +54,8 @@ def DumpChannelsFromLGU():
     for channel in channels:
       print('현재 처리중인 채널:', channel.string)
       result.append({
-        'LGU Name': p_name.search(channel.string).group(),
-        'LGUCh': int(p_ch.search(channel.string).group()),
+        'Name': p_name.search(channel.string).group(),
+        'Ch': int(p_ch.search(channel.string).group()),
         'Source': 'LG',
         'ServiceId': p_id.search(channel['onclick']).group()
       })
