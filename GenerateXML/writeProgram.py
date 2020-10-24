@@ -16,7 +16,7 @@ def writeProgram(programInfo: Dict) -> str:
         'startTime': 'YYYYMMDDhhmmss +0900',
         'endTime': 'YYYYMMDDhhmmss +0900',
         'episode': 'n회' | None,
-        'isRebroadcast': True | False | None,
+        'isRebroadcast': True | False,
         'KMRB': '전체관람가' | '12세이상관람가' | '15세이상관람가' | '청소년관람불가' | None
     } \n
     @return xml string
