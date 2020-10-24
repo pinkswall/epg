@@ -2,7 +2,7 @@ import json
 import requests
 from datetime import datetime, date, timedelta
 
-def DumpChannelsFromTving():
+def DumpChannelsFromTVING():
   """
   Tving에서 제공하는 EPG의 채널 목록을 파싱합니다. 
   현재부터 3시간 지난 시점까지 EPG가 존재하는 채널만 해당됩니다. \n

@@ -1,7 +1,7 @@
 import json
 import requests
 
-def DumpChannelsFromSkb():
+def DumpChannelsFromSKB():
   """
   SKB에서 제공하는 EPG의 채널 목록을 파싱합니다. \n
   @return [

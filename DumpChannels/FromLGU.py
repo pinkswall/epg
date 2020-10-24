@@ -3,13 +3,13 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-def DumpChannelsFromLg():
+def DumpChannelsFromLGU():
   """
   LGU에서 제공하는 EPG의 채널 목록을 파싱합니다. \n
   @return [ 
     {
-      'LG Name': '채널이름',
-      'LGCh': 채널번호,
+      'LGU Name': '채널이름',
+      'LGUCh': 채널번호,
       'Source': 'LG',
       'ServiceId': '서비스ID'
     }
@@ -54,8 +54,8 @@ def DumpChannelsFromLg():
     for channel in channels:
       print('현재 처리중인 채널:', channel.string)
       result.append({
-        'LG Name': p_name.search(channel.string).group(),
-        'LGCh': int(p_ch.search(channel.string).group()),
+        'LGU Name': p_name.search(channel.string).group(),
+        'LGUCh': int(p_ch.search(channel.string).group()),
         'Source': 'LG',
         'ServiceId': p_id.search(channel['onclick']).group()
       })

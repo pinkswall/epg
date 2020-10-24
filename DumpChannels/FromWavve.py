@@ -2,7 +2,7 @@ import json
 import requests
 from datetime import timedelta, date
 
-def DumpChannelsFromWavve():
+def DumpChannelsFromWAVVE():
   """
   Wavve에서 제공하는 EPG의 채널 목록을 파싱합니다. 
   오늘 날짜로 제공되는 EPG만 해당됩니다. \n

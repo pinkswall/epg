@@ -2,7 +2,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
-def DumpChannelsFromNaver():
+def DumpChannelsFromNAVER():
   """
   네이버에서 제공하는 EPG의 채널 목록을 파싱합니다. \n
   @return [ 
