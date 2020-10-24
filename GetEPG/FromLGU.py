@@ -5,7 +5,7 @@ import requests
 import re
 
 
-def GetEPGFromLGU(serviceId: str, period: int) -> List:
+def GetEPGFromLGU(serviceId: str, period: int) -> List[Dict]:
     """
     LGU에서 ServiceId에 해당하는 채널의 EPG를 받아옵니다. \n
     @return [
@@ -60,4 +60,3 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List:
             })
 
     return result
-
