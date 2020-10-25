@@ -1,53 +1,51 @@
-from xml.etree.ElementTree import Element, SubElement, ElementTree, tostring
+from xml.etree.ElementTree import Element, SubElement, tostring
 from typing import Dict
 
-def writeProgram(programInfo: Dict) -> str:
+def writeProgram(programInfo: Dict, Id: str) -> str:
     """
     프로그램 정보를 입력받아 xml형식으로 정리합니다. \n
     @param programInfo - \n
     {
-        'id': '채널ID',
-        'title': '제목',
-        'subtitle': '부제목' | None,
-        'icon': 'https://ddns/path/to/icon' | None,
-        'description': '~~하고 ~~하는 프로그램' | None,
-        'category': '카테고리',
-        'credits': [ { 'name': '이름', 'type': '직종', 'role': '역할' | None } ] | None,
-        'startTime': 'YYYYMMDDhhmmss +0900',
-        'endTime': 'YYYYMMDDhhmmss +0900',
-        'episode': 'n회' | None,
-        'isRebroadcast': True | False,
-        'KMRB': '전체관람가' | '12세이상관람가' | '15세이상관람가' | '청소년관람불가' | None
+        'Title': '제목',
+        'Subtitle'?: '부제목',
+        'Icon_url'?: 'https://ddns/path/to/icon',
+        'Episode'?: 'n회',
+        'Description'?: '~~하고 ~~하는 프로그램',
+        'Category'?: '카테고리',
+        'Credits'?: [ { 'Name': '이름', 'Type': '직종', 'Role'?: '역할' } ],
+        'StartTime': 'YYYYMMDDhhmmss +0900',
+        'EndTime': 'YYYYMMDDhhmmss +0900',
+        'IsRebroadcast'?: True | False,
+        'KMRB'?: '전체관람가' | '12세이상관람가' | '15세이상관람가' | '청소년관람불가'
     } \n
     @return xml string
     """
 
-    program = Element('programme', start=programInfo['startTime'], stop=programInfo['endTime'], channel=programInfo['id'])
+    program = Element('programme', start=programInfo['StartTime'], stop=programInfo['EndTime'], channel=Id)
 
-    SubElement(program, 'title', attrib={'lang': 'kr'}).text = programInfo['title']
+    SubElement(program, 'title', attrib={'lang': 'kr'}).text = programInfo['Title']
 
-    if programInfo['icon']: SubElement(program, 'icon', attrib={'src': programInfo['icon']})
+    if ('Icon_url' in programInfo) and programInfo['Icon_url']: SubElement(program, 'icon', attrib={'src': programInfo['Icon_url']})
 
-    if programInfo['subtitle']:  SubElement(program, 'sub-title', attrib={'lang': "kr"}).text = programInfo['subtitle']
+    if ('Subtitle' in programInfo) and programInfo['Subtitle']: SubElement(program, 'sub-title', attrib={'lang': "kr"}).text = programInfo['Subtitle']
 
-    if programInfo['description']: SubElement(program, 'desc', attrib={'lang': 'kr'}).text = programInfo['description']
+    if ('Description' in programInfo) and programInfo['Description']: SubElement(program, 'desc', attrib={'lang': 'kr'}).text = programInfo['Description']
 
-    if programInfo['credits']:
+    if ('Credits' in programInfo) and programInfo['Credits']:
         ElemCredits = SubElement(program, 'credits')
-        for credit in programInfo['credits']:
-            if credit['role']:
-                SubElement(ElemCredits, credit['type'], attrib={'role': credit['role']}).text = credit['name']
+        for credit in programInfo['Credits']:
+            if ('Role' in credit) and programInfo['Role']:
+                SubElement(ElemCredits, credit['Type'], attrib={'role': credit['Role']}).text = credit['Name']
             else:
-                SubElement(ElemCredits, credit['type']).text = credit['name']
+                SubElement(ElemCredits, credit['Type']).text = credit['Name']
 
-    SubElement(program, 'category', attrib={'lang': 'kr'}).text = programInfo['category']
+    if ('Category' in programInfo) and programInfo['Category']: SubElement(program, 'category', attrib={'lang': 'kr'}).text = programInfo['Category']
 
-    if programInfo['episode']: SubElement(program, 'episode-num', attrib={'system': 'onscreen'})
+    if ('Episode' in programInfo) and programInfo['Episode']: SubElement(program, 'episode-num', attrib={'system': 'onscreen'}).text = programInfo['Episode']
 
-    if programInfo['isRebroadcast']: SubElement(program, 'previously-shown')
+    if ('IsRebroadcast' in programInfo) and programInfo['IsRebroadcast']: SubElement(program, 'previously-shown')
 
-    if programInfo['KMRB']:
-        SubElement(SubElement(program, 'rating', attrib={'system': 'KMRB'}), 'value').text = programInfo['KMRB']
+    if ('KMRB' in programInfo) and programInfo['KMRB']: SubElement(SubElement(program, 'rating', attrib={'system': 'KMRB'}), 'value').text = programInfo['KMRB']
 
 
     return tostring(program, encoding='unicode')
