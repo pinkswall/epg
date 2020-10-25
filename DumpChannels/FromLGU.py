@@ -52,7 +52,6 @@ def DumpChannelsFromLGU():
 
     channels = html.find_all(attrs={'name': 'chList'})
     for channel in channels:
-      print('현재 처리중인 채널:', channel.string)
       result.append({
         'Name': p_name.search(channel.string).group(),
         'Ch': int(p_ch.search(channel.string).group()),
