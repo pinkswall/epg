@@ -1,9 +1,9 @@
 [
   {
     "Id": "1",
-    "Name": "first channel",
+    "Name": "sbs",
     "Icon_url": "https://ddns/path/to/icon",
     "Source": "LGU",
-    "ServiceId": "522"
+    "ServiceId": "504"
   }
 ]

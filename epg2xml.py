@@ -12,7 +12,7 @@ from GetEPG import *
 
 config = {
     'fetch_day': 3,
-    'path_to_channels': 'Channels.json'
+    'path_to_channels': './Channels.json'
 }
 
 
@@ -47,7 +47,7 @@ def validateChannel(Channel: Dict, DumpedChannels: List):
             return Channel     
     return None
 
-def requestEPG(Channel: Dict, period: int, SetDumpedChannels: Dict | None) -> Tuple:
+def requestEPG(Channel: Dict, period: int, SetDumpedChannels) -> Tuple:
     """
     올바른 ServiceId에 한해, EPG를 요청합니다. \n
     @return (Channel, SetDumpedChannels): Tuple \n
@@ -148,4 +148,11 @@ for Channel in Channels:
             if Program['Title'] is None: continue
             XmlPrograms.append(writeProgram(Program, UpdatedChannel['Id']))
 
-# TODO: XML Write
+# TODO: Dump Write
+tv = Element('tv', attrib={'generator-info-name': 'pink-epg 0.0.1'})
+for XmlChannel in XmlChannels:
+    tv.append(fromstring(XmlChannel))
+for XmlProgram in XmlPrograms:
+    tv.append(fromstring(XmlProgram))
+
+ElementTree(tv).write("xmltv.xml", encoding="UTF-8", xml_declaration=True)
