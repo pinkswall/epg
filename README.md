@@ -8,14 +8,15 @@ requests와 beautifulsoup가 필요합니다.
 
     
 # TODO   
-|Source|Dump|EPG|
-|KT|미지원|미지원|
-|SKB|지원|미지원|
-|LGU|지원|지원|
-|NAVER|지원|미지원|
-|DAUM|미지원|미지원|
-|WAVVE|지원|미지원|
-|TVING|지원|미지원|
+| Source | Dump | EPG |
+| ---- | ---- | ---- |
+| KT | 미지원 | 미지원 |
+| SKB | 지원 | 미지원 |
+| LGU | 지원 | 지원 |
+| NAVER | 지원| 미지원 |
+| DAUM | 미지원| 미지원 |
+| WAVVE | 지원 | 미지원 |
+| TVING | 지원 | 미지원 |
 - 모두 지원하기 
 
 - Id가 없다면 임의로 지정
