@@ -25,3 +25,5 @@ requests와 beautifulsoup가 필요합니다.
 - 문서화
 
 - 정확한 타입 지정(typing)
+
+- 각 EPG의 period limit 처리
