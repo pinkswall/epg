@@ -29,8 +29,15 @@ def DumpChannelsFromNAVER():
   result = []
   
   for cat in category:
+    params = {
+      'pkid': '66',
+      'where': 'nexearch',
+      'u1': cat['u1'],
+      'key': 'ScheduleChannelList'
+    }
+    
     try:
-      req = requests.get("https://m.search.naver.com/p/csearch/content/nqapirender.nhn?pkid=66&where=nexearch&u1=%s&key=ScheduleChannelList" % cat['u1'], headers={'User-Agent': UA})
+      req = requests.get("https://m.search.naver.com/p/csearch/content/nqapirender.nhn", headers={'User-Agent': UA}, params=params)
       print('Status Code: ', req.status_code)
     except Exception as e:
       print('요청 중 에러: %s' % str(e))
