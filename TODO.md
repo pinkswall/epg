@@ -25,3 +25,5 @@
 - 정확한 타입 지정(typing)
 
 - 각 EPG의 period limit 처리
+
+- 1부, 2부 나뉠시 통합하는 옵션 추가 ([클릭](https://www.clien.net/service/board/cm_nas/12566572))
