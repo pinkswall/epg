@@ -1,6 +1,4 @@
-# https://docs.python.org/ko/3/library/xml.etree.elementtree.html
-# http://wiki.xmltv.org/index.php/XMLTVFormat
-from xml.etree.ElementTree import Element, SubElement, ElementTree, fromstring, canonicalize
+from xml.etree.ElementTree import Element, SubElement, ElementTree, fromstring
 from typing import Dict, List, Tuple
 import sys
 import json
