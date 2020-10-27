@@ -10,13 +10,13 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List[Dict]:
     LGU에서 ServiceId에 해당하는 채널의 EPG를 받아옵니다. \n
     @return [
         {
-            'Title': '프로그램 이름',
-            'Subtitle': '부제목' | None,
+            'Title': '프로그램 이름' | 'None',
+            'Subtitle'?: '부제목' | None,
             'Category': '카테고리',
             'StartTime': 'YYYYMMDDhhmmss +0900',
-            'Episode': 'n회' | None
-            'IsRebroadcast': True | False | None,
-            'KMRB': '전체관람가' | '12세이상관람가' | '15세이상관람가' | '청소년관람불가' | None
+            'Episode'?: 'n회',
+            'IsRebroadcast': True | False,
+            'KMRB'?: '전체관람가' | '12세이상관람가' | '15세이상관람가' | '청소년관람불가'
         }
     ] \n
     @request_count: period
@@ -49,14 +49,19 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List[Dict]:
             is_rebroadcast = True if p_rebroadcast.search(programFullTitle) else False
             episode = p_episode.search(programFullTitle).group().strip() if p_episode.search(programFullTitle) else None
 
-            result.append({
-                'Title': programTitle if programTitle != '방송없음' else None,
-                'Subtitle': subtitle,
+            program = {}
+            # 필수 리턴 요소
+            program.update({
+                'Title': programTitle,
                 'Category': channel.find(attrs={'class': 'txtC hidden-xs'}).string.strip(),
                 'StartTime': datetime.strptime(str(target_day) + ' ' + channel.find(attrs={'class': 'txtC'}).string.strip(), '%Y-%m-%d %H:%M').strftime('%Y%m%d%H%M%S') + ' +0900',
-                'Episode': episode,
-                'IsRebroadcast': is_rebroadcast,
-                'KMRB': KMRB
+                'IsRebroadcast': is_rebroadcast
             })
+
+            if subtitle: program['Subtitle'] = subtitle
+            if episode: program['Episode'] = episode
+            if KMRB: program['KMRB'] = KMRB
+            
+            result.append(program)
 
     return result
