@@ -19,5 +19,5 @@ requests와 beautifulsoup가 필요합니다.
 | WAVVE  | 지원   | 미지원 |
 | TVING  | 지원   | 미지원 |  
 
-! 10월 29일 네이버 검색결과 개편이 있을 예정임. ([참고](https://blog.naver.com/naver_search/222121955350))
+! 10월 29일 네이버 검색결과 개편이 있을 예정임. ([참고](https://blog.naver.com/naver_search/222121955350))  
 Check [TODO.md](https://github.com/pinkswall/epg/blob/main/TODO.md)
