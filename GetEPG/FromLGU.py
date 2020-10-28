@@ -26,8 +26,8 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List[Dict]:
     UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0'
 
     p_fullTitle = re.compile(r'.+(?=\n)')
-    p_title = re.compile(r'^[^[|^(^<]+')
-    p_subtitle = re.compile(r'(?<=\[).+(?=\])')
+    p_title = re.compile(r'.+(?=\[)|(?=\()|(?=\<)')
+    p_subtitle = re.compile(r'(?<=.\[).+(?=\])')
     p_rebroadcast = re.compile(r'<재>')
     p_episode = re.compile(r'(\d+(?=회))')
 
@@ -65,5 +65,3 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List[Dict]:
             result.append(program)
 
     return result
-
-print(GetEPGFromLGU('508', 7))
