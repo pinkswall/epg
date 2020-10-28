@@ -16,7 +16,7 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List[Dict]:
             'StartTime': 'YYYYMMDDhhmmss +0900',
             'Episode'?: 'n회',
             'IsRebroadcast': True | False,
-            'KMRB'?: '전체관람가' | '12세이상관람가' | '15세이상관람가' | '청소년관람불가'
+            'KCSC'?: '모든연령시청가' | '7세이상시청가' | '12세이상시청가' | '15세이상시청가' | '19세이상시청가'
         }
     ] \n
     @request_count: period
@@ -41,7 +41,7 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List[Dict]:
         
         for channel in channels:
             grade = channel.find(attrs={'class': 'tag cte_all'}).string
-            KMRB = '전체관람가' if grade == 'ALL' else '12세이상관람가' if grade == '12' else '15세이상관람가' if grade == '15' else '청소년관람불가' if grade == '19' else None
+            KCSC = '모든연령시청가' if grade == 'ALL' else '7세이상시청가' if grade == '7' else '12세이상시청가' if grade == '12' else '15세이상시청가' if grade == '15' else '19세이상시청가' if grade == '19' else None
 
             programFullTitle = p_fullTitle.match(channel.find('td', attrs={'class': 'txtL'}).text.strip()).group()
             programTitle = p_title.search(programFullTitle).group().strip()
@@ -60,8 +60,10 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List[Dict]:
 
             if subtitle: program['Subtitle'] = subtitle
             if episode: program['Episode'] = episode
-            if KMRB: program['KMRB'] = KMRB
+            if KCSC: program['KCSC'] = KCSC
             
             result.append(program)
 
     return result
+
+print(GetEPGFromLGU('508', 7))

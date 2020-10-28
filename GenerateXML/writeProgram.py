@@ -16,7 +16,7 @@ def writeProgram(programInfo: Dict, Id: str) -> str:
         'StartTime': 'YYYYMMDDhhmmss +0900',
         'EndTime': 'YYYYMMDDhhmmss +0900',
         'IsRebroadcast'?: True | False,
-        'KMRB'?: '전체관람가' | '12세이상관람가' | '15세이상관람가' | '청소년관람불가'
+        'KCSC'?: '모든연령시청가' | '7세이상시청가' | '12세이상시청가' | '15세이상시청가' | '19세이상시청가'
     } \n
     @return xml string
     """
@@ -45,7 +45,7 @@ def writeProgram(programInfo: Dict, Id: str) -> str:
 
     if ('IsRebroadcast' in programInfo) and programInfo['IsRebroadcast']: SubElement(program, 'previously-shown')
 
-    if ('KMRB' in programInfo) and programInfo['KMRB']: SubElement(SubElement(program, 'rating', attrib={'system': 'KMRB'}), 'value').text = programInfo['KMRB']
+    if ('KCSC' in programInfo) and programInfo['KCSC']: SubElement(SubElement(program, 'rating', attrib={'system': 'KCSC'}), 'value').text = programInfo['KCSC']
 
 
     return tostring(program, encoding='unicode')
