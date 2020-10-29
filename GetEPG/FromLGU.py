@@ -10,8 +10,8 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List[Dict]:
     LGU에서 ServiceId에 해당하는 채널의 EPG를 받아옵니다. \n
     @return [
         {
-            'Title': '프로그램 이름' | 'None',
-            'Subtitle'?: '부제목' | None,
+            'Title': '프로그램 이름',
+            'Subtitle'?: '부제목',
             'Category': '카테고리',
             'StartTime': 'YYYYMMDDhhmmss +0900',
             'Episode'?: 'n회',
@@ -25,6 +25,7 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List[Dict]:
     URL = 'http://www.uplus.co.kr/css/chgi/chgi/RetrieveTvSchedule.hpi'
     UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0'
 
+    # Regex patterns
     p_fullTitle = re.compile(r'.+(?=\n)')
     p_title = re.compile(r'.+(?=\[)|(?=\()|(?=\<)')
     p_subtitle = re.compile(r'(?<=.\[).+(?=\])')
