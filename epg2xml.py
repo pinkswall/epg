@@ -49,9 +49,9 @@ def requestEPG(Channel: Dict, period: int, SetDumpedChannels) -> Tuple:
     """
     올바른 ServiceId에 한해, EPG를 요청합니다. \n
     @return (Channel, SetDumpedChannels): Tuple \n
-    @return Channel: Dict - 기존 Channel에 덤프에 있던 정보와 EPG 정보가 추가되었습니다. \n
+    @return Channel: Dict - 사용자가 입력한 정보와 덤프, EPG가 담긴 채널 정보 \n
     @return Channel['EPG']: List - EPG 정보. 자세한 값은 GetEPG 함수 참고 \n
-    @return SetDumpedChannels: Dict - {'SourceName': Dump}
+    @return SetDumpedChannels: Dict - {'SourceName': DUMP}
     """
 
     if SetDumpedChannels is None:
