@@ -17,6 +17,7 @@ def DumpChannelsFromNAVER():
 
   print('Naver에서 정보를 가져오고 있습니다 . . .')
 
+  URL = "https://m.search.naver.com/p/csearch/content/nqapirender.nhn"
   UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:81.0) Gecko/20100101 Firefox/81.0'
   category = [
     {'name': '지상파', 'u1':'100'},
@@ -26,8 +27,8 @@ def DumpChannelsFromNAVER():
     {'name': '해외위성', 'u1': '9000'},
     {'name': '라디오', 'u1': '400'}
   ]
+
   result = []
-  
   for cat in category:
     params = {
       'pkid': '66',
@@ -37,10 +38,10 @@ def DumpChannelsFromNAVER():
     }
     
     try:
-      req = requests.get("https://m.search.naver.com/p/csearch/content/nqapirender.nhn", headers={'User-Agent': UA}, params=params)
+      req = requests.get(URL, headers={'User-Agent': UA}, params=params)
       print('Status Code: ', req.status_code)
     except Exception as e:
-      print('요청 중 에러: %s' % str(e))
+      print('API 요청 중 에러: %s' % str(e))
 
     html = BeautifulSoup(json.loads(req.text)['dataHtml'], 'html.parser')
     channels = html.select('li.item')
