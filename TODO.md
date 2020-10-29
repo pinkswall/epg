@@ -14,12 +14,6 @@
 
 - 모두 지원
 
-- argparse
-
-- logging system
-
-- comprehension(문법)
-
 - Id가 없다면 임의로 지정
 
 - 각 EPG의 period limit 처리
@@ -34,8 +28,3 @@
   </br>
 - Id가 tvheadend에서 어디에 쓰이는지.
 - KT는 IPTV상품에 따라 ServiceId가 다른듯 하다.
-
-## Todo-now
-
-- 네이버 EPG 함수 구현
-- 네이버 스카이라이프 채널 포함 여부. 이름은 같지만 serviceId와 편성표가 다름.
