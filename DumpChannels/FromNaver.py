@@ -2,6 +2,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
+
 def DumpChannelsFromNAVER():
   """
   네이버에서 제공하는 EPG의 채널 목록을 파싱합니다. \n
@@ -9,7 +10,8 @@ def DumpChannelsFromNAVER():
     {
       'Name': '채널이름',
       'Source': 'NAVER',
-      'ServiceId': '서비스ID'
+      'ServiceId': '서비스ID',
+      'Query': 'Search Term'
     }
   ] \n
   @request_count: 6
@@ -27,6 +29,7 @@ def DumpChannelsFromNAVER():
     {'name': '해외위성', 'u1': '9000'},
     {'name': '라디오', 'u1': '400'}
   ]
+
 
   result = []
   for cat in category:
@@ -49,10 +52,16 @@ def DumpChannelsFromNAVER():
     for channel in channels:
       ch_name = channel.find('div', attrs={'class': "channel_name"}).string
       ch_id = channel.find('div', attrs={'class': "u_likeit_list_module _reactionModule zzim"})['data-cid']
+      ch_query = channel.find('a', attrs={'class': 'lk'})['href']
+
       result.append({
-        'Name': str(ch_name),
+        'Name': str(ch_name).strip(),
         'Source': 'NAVER',
-        'ServiceId': ch_id
+        'ServiceId': ch_id.strip(),
+        'Query': ch_query.strip()
       })
   
   return result
+
+with open('naverList.json', 'w', encoding='UTF-8') as file:
+  file.write(json.dumps(DumpChannelsFromNAVER(), ensure_ascii=False, indent=2) )
