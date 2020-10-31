@@ -25,27 +25,27 @@ def writeProgram(programInfo: Dict, Id: str) -> str:
 
     SubElement(program, 'title', attrib={'lang': 'kr'}).text = programInfo['Title']
 
-    if ('Icon_url' in programInfo) and programInfo['Icon_url']: SubElement(program, 'icon', attrib={'src': programInfo['Icon_url']})
+    if 'Icon_url' in programInfo: SubElement(program, 'icon', attrib={'src': programInfo['Icon_url']})
 
-    if ('Subtitle' in programInfo) and programInfo['Subtitle']: SubElement(program, 'sub-title', attrib={'lang': "kr"}).text = programInfo['Subtitle']
+    if 'Subtitle' in programInfo: SubElement(program, 'sub-title', attrib={'lang': "kr"}).text = programInfo['Subtitle']
 
-    if ('Description' in programInfo) and programInfo['Description']: SubElement(program, 'desc', attrib={'lang': 'kr'}).text = programInfo['Description']
+    if 'Description' in programInfo: SubElement(program, 'desc', attrib={'lang': 'kr'}).text = programInfo['Description']
 
-    if ('Credits' in programInfo) and programInfo['Credits']:
+    if 'Credits' in programInfo:
         ElemCredits = SubElement(program, 'credits')
         for credit in programInfo['Credits']:
-            if ('Role' in credit) and programInfo['Role']:
+            if 'Role' in credit:
                 SubElement(ElemCredits, credit['Type'], attrib={'role': credit['Role']}).text = credit['Name']
             else:
                 SubElement(ElemCredits, credit['Type']).text = credit['Name']
 
-    if ('Category' in programInfo) and programInfo['Category']: SubElement(program, 'category', attrib={'lang': 'kr'}).text = programInfo['Category']
+    if 'Category' in programInfo: SubElement(program, 'category', attrib={'lang': 'kr'}).text = programInfo['Category']
 
-    if ('Episode' in programInfo) and programInfo['Episode']: SubElement(program, 'episode-num', attrib={'system': 'onscreen'}).text = programInfo['Episode']
+    if 'Episode' in programInfo: SubElement(program, 'episode-num', attrib={'system': 'onscreen'}).text = programInfo['Episode']
 
     if ('IsRebroadcast' in programInfo) and programInfo['IsRebroadcast']: SubElement(program, 'previously-shown')
 
-    if ('KCSC' in programInfo) and programInfo['KCSC']: SubElement(SubElement(program, 'rating', attrib={'system': 'KCSC'}), 'value').text = programInfo['KCSC']
+    if 'KCSC' in programInfo: SubElement(SubElement(program, 'rating', attrib={'system': 'KCSC'}), 'value').text = programInfo['KCSC']
 
 
     return tostring(program, encoding='unicode')
