@@ -27,7 +27,7 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List[Dict]:
 
     # Regex patterns
     p_fullTitle = re.compile(r'.+(?=\n)')
-    p_title = re.compile(r'.+(?=\[)|(?=\()|(?=\<)')
+    p_title = re.compile(r'.+(?=[\(\[\<])')
     p_subtitle = re.compile(r'(?<=.\[).+(?=\])')
     p_rebroadcast = re.compile(r'<재>')
     p_episode = re.compile(r'(\d+(?=회))')
@@ -39,18 +39,26 @@ def GetEPGFromLGU(serviceId: str, period: int) -> List[Dict]:
         req = requests.post(URL, params={'chnlCd': serviceId, 'evntCmpYmd': target_day.strftime('%Y%m%d')}, headers={'User-Agent': UA})
         html = BeautifulSoup(req.text, 'html.parser')
         channels = html.select('.tblType > table > tbody > tr')
-        
+
         for channel in channels:
-            grade = channel.find(attrs={'class': 'tag cte_all'}).string
+            grade = channel.find(attrs={'class': 'tag cte_all'}).text.strip()
             KCSC = '모든연령시청가' if grade == 'ALL' else '7세이상시청가' if grade == '7' else '12세이상시청가' if grade == '12' else '15세이상시청가' if grade == '15' else '19세이상시청가' if grade == '19' else None
 
             programFullTitle = p_fullTitle.match(channel.find('td', attrs={'class': 'txtL'}).text.strip()).group()
-            programTitle = p_title.search(programFullTitle).group().strip()
+            # TODO: need better regex
+            if p_title.search(programFullTitle):
+                programTitle = p_title.search(programFullTitle).group().strip()
+                while p_title.search(programTitle):
+                    programTitle = p_title.search(programTitle).group().strip()
+            else:
+                programTitle = programFullTitle
             subtitle = p_subtitle.search(programFullTitle).group().strip() if p_subtitle.search(programFullTitle) else None
             is_rebroadcast = True if p_rebroadcast.search(programFullTitle) else False
             episode = p_episode.search(programFullTitle).group().strip() if p_episode.search(programFullTitle) else None
 
+
             program = {}
+
             # 필수 리턴 요소
             program.update({
                 'Title': programTitle,
