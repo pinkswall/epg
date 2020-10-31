@@ -1,5 +1,6 @@
 from xml.etree.ElementTree import Element, SubElement, ElementTree, fromstring
 from typing import Dict, List, Tuple
+import os
 import sys
 import json
 
@@ -9,9 +10,12 @@ from GetEPG import *
 
 
 config = {
-    'fetch_day': 3,
-    'path_to_channels': './Channels.json'
+    'fetch_period': 1,
+    'path_to_channels': './Channels.json',
+    'path_to_dumps_dir': '/Dumps'
 }
+
+__dirpath__ = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 
 def addEndTime(EPGs):
@@ -31,7 +35,7 @@ def addEndTime(EPGs):
     
 def validateChannel(Channel: Dict, DumpedChannels: List):
     """
-    잘못된 채널을 필터하고, 부족한 정보가 있으면 덤프에서 추가합니다. \n
+    잘못된 채널을 걸러내고, 부족한 정보가 있으면 덤프에서 추가합니다. \n
     @return UpdatedChannel | None
     """
     for dumpedChannel in DumpedChannels:
@@ -94,7 +98,7 @@ def requestEPG(Channel: Dict, period: int, SetDumpedChannels) -> Tuple:
             SetDumpedChannels["NAVER"] = DumpChannelsFromNAVER()
         Channel = validateChannel(Channel, SetDumpedChannels['NAVER'])
         if Channel:
-            Channel['EPG'] = addEndTime(GetEPGFromNAVER(Channel['ServiceId'], period))
+            Channel['EPG'] = addEndTime(GetEPGFromDesktopNAVER(Channel['Query']))
             return (Channel, SetDumpedChannels)
         print('잘못된 ServiceId :', Channel['Name'], ", " , Channel["serviceId"])
         return (None, SetDumpedChannels)
@@ -139,18 +143,25 @@ XmlPrograms = []
 # EPG2XML:STR
 for Channel in Channels:
     # UpdatedChannel은 결여된 정보와 EPG가 추가된 Channel임.
-    UpdatedChannel, SetDumpedChannels = requestEPG(Channel=Channel, period=config['fetch_day'], SetDumpedChannels=SetDumpedChannels)
+    UpdatedChannel, SetDumpedChannels = requestEPG(Channel=Channel, period=config['fetch_period'], SetDumpedChannels=SetDumpedChannels)
     if UpdatedChannel is not None:
         XmlChannels.append(writeChannel(channelInfo=Channel))
         for Program in UpdatedChannel['EPG']:
             if Program['Title'] is None: continue
             XmlPrograms.append(writeProgram(Program, UpdatedChannel['Id']))
 
-# TODO: Dump Write
-tv = Element('tv', attrib={'generator-info-name': 'pink-epg 0.0.1'})
+
+tv = Element('tv', attrib={'generator-info-name': 'pink-epg'})
 for XmlChannel in XmlChannels:
     tv.append(fromstring(XmlChannel))
 for XmlProgram in XmlPrograms:
     tv.append(fromstring(XmlProgram))
 
+# Write XML
 ElementTree(tv).write("xmltv.xml", encoding="UTF-8", xml_declaration=True)
+
+# Write XML
+# TODO: 설정한 파일 path에 덤프 쓰기 
+for source in SetDumpedChannels:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), source + '.json'), 'w', encoding='UTF-8') as jsonFile:
+        jsonFile.write(json.dumps(SetDumpedChannels[source], ensure_ascii=False, indent=2))
