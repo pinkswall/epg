@@ -7,7 +7,7 @@
 | KT     | 미지원 | 미지원 |
 | SKB    | 지원   | 미지원 |
 | LGU    | 지원   | 지원   |
-| NAVER  | 지원   | 미지원 |
+| NAVER  | 지원   | 지원   |
 | DAUM   | 미지원 | 미지원 |
 | WAVVE  | 지원   | 미지원 |
 | TVING  | 지원   | 미지원 |
@@ -26,5 +26,3 @@
    -> imdb는 한국어 미지원으로 사용불가.  
    -> thetvdb는 극소수이지만 데이터가 있는듯?
   </br>
-- Id가 tvheadend에서 어디에 쓰이는지.
-- KT는 IPTV상품에 따라 ServiceId가 다른듯 하다.
