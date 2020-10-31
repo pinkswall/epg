@@ -3,9 +3,15 @@
 파이썬 연습과 개인적 필요에 의한 레포입니다.  
 NAVER, DAUM, KT, SKB, LGU, WAVVE, TVING 지원을 목표로 합니다.  <br/>
 
-> pip install requests beautifulsoup4
+## 사용하기 전에  
+> pip install requests beautifulsoup4  
 
-requests와 beautifulsoup가 필요합니다.
+requests, beautifulsoup4가 필요합니다.  
+
+## 특징  
+- Service ID와 Source만 있어도 작동합니다. 누락된 정보는 자동으로 기입됩니다.  
+
+
 
 # TODO
 
