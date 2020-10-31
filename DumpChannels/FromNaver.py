@@ -62,6 +62,3 @@ def DumpChannelsFromNAVER():
       })
   
   return result
-
-with open('naverList.json', 'w', encoding='UTF-8') as file:
-  file.write(json.dumps(DumpChannelsFromNAVER(), ensure_ascii=False, indent=2) )
