@@ -30,9 +30,8 @@ jobs:
     - name: Request and Generate EPG XML
       run: |
         pwd
-        ll
         ls
-        python epg2xml.py
+        python -m epg2xml.py
         
     - name: Commit
       run: |
