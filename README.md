@@ -19,8 +19,8 @@ NAVER, DAUM, KT, SKB, LGU, WAVVE, TVING 지원을 목표로 합니다. <br/>
 | WAVVE  | `None`                                     |
 | TVING  | `None`                                     |
 
-<sup><b id="a1">1. </b>(EPG를 가져오는데 필요한 요청 횟수) + (DUMP에 필요한 요청 횟수) [↩](#q1)</sup>  
-<sup><b id="a2">2. </b>한 요청에 7일치 EPG를 가져옵니다. [↩](#q2)</sup>
+<sup><b id="a1">1. </b>(EPG생성에 필요한 요청 횟수) + (DUMP생성에 필요한 요청 횟수) [↩](#q1)</sup>  
+<sup><b id="a2">2. </b>한 요청에 7일치(어제+당일포함6일) EPG를 가져옵니다. [↩](#q2)</sup>
 
 ## 특징
 
