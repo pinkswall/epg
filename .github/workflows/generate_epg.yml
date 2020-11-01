@@ -37,7 +37,7 @@ jobs:
         git config --local user.name 'EPG Bot'
         git config --local user.email 'action@github.com'
         git add -f xmltv.xml
-        git commit "Automated Commit"
+        git commit -m "Automated Commit"
         git push
         
 #     - name: Push changes
