@@ -16,7 +16,7 @@ config = {
     'path_to_dumps_dir': './Dumps'
 }
 
-DIR = os.path.dirname(os.path.abspath(__file__)
+DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def addEndTime(EPGs):
