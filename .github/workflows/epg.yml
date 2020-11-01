@@ -4,6 +4,8 @@
 name: EPG Scraping, Dumping, Writing in XML
 
 on:
+  push:
+      branches: [ epg ]
   schedule:
     - cron: "0 9,21 * * *"
 
