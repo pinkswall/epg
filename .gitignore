@@ -3,4 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+Channels.json
+*.json
 *.xml
+*.txt
+
