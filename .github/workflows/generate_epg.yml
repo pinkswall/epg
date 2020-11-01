@@ -30,10 +30,9 @@ jobs:
     - name: Request and Generate EPG XML
       run: |
         pwd
+        ll
+        ls
         python epg2xml.py
-    - name: Test with pytest
-      run: |
-        echo "Ended"
         
     - name: Commit
       run: |
