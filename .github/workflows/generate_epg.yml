@@ -36,7 +36,7 @@ jobs:
       run: |
         git config --local user.name 'EPG Bot'
         git config --local user.email 'action@github.com'
-        git add xmltv.xml
+        git add -f xmltv.xml
         git commit "Automated Commit"
         git push
         
