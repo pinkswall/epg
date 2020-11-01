@@ -164,4 +164,4 @@ ElementTree(tv).write("xmltv.xml", encoding="UTF-8", xml_declaration=True)
 for source in SetDumpedChannels:
     headers = [{'last update': datetime.now().strftime('%Y/%m/%d %H:%M:%S'), 'total': len(SetDumpedChannels[source])}]
     with open(os.path.join(DIR, os.path.basename(config['path_to_dumps_dir']), source+'.json'), 'w', encoding='UTF-8') as jsonFile:
-        jsonFile.write(json.dumps(headers + SetDumpedChannels[source], ensure_ascii=False, indent=2))
+        jsonFile.write(json.dumps(headers + SetDumpedChannels[source], ensure_ascii=False, indent=2)) 
