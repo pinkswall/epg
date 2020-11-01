@@ -1,9 +1,42 @@
 [
   {
-    "Id": "1",
-    "Name": "sbs",
-    "Icon_url": "https://ddns/path/to/icon",
-    "Source": "LGU",
-    "ServiceId": "504"
+    "Name": "KBS1",
+    "Source": "NAVER",
+    "ServiceId": "814574"
+  },
+  {
+    "Name": "KBS2",
+    "Source": "NAVER",
+    "ServiceId": "814582"
+  },
+  {
+    "Name": "MBC",
+    "Source": "NAVER",
+    "ServiceId": "814588"
+  },
+  {
+    "Name": "SBS",
+    "Source": "NAVER",
+    "ServiceId": "814592"
+  },
+  {
+    "Name": "EBS1",
+    "Source": "NAVER",
+    "ServiceId": "814595"
+  },
+  {
+    "Name": "EBS2",
+    "Source": "NAVER",
+    "ServiceId": "2438226"
+  },
+  {
+    "Name": "Disney Junior",
+    "Source": "NAVER",
+    "ServiceId": "815320"
+  },
+  {
+    "Name": "Disney Channel",
+    "Source": "NAVER",
+    "ServiceId": "815001"
   }
 ]

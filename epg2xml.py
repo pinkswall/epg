@@ -11,7 +11,7 @@ from GetEPG import *
 
 
 config = {
-    'fetch_period': 1,
+    'fetch_period': 2,
     'path_to_channels': './Channels.json',
     'path_to_dumps_dir': './Dumps',
     'NAVER_more_info': True
@@ -43,12 +43,12 @@ def validateChannel(Channel: Dict, DumpedChannels: List):
     for dumpedChannel in DumpedChannels:
         # 'ServiceId' 값이 올바르지 않은 채널 필터
         if Channel['ServiceId'] == dumpedChannel['ServiceId']:
-            # 'Id' 값이 없는 채널 필터
-            if 'Id' not in Channel: return None
             # 덤프에서 부족한 정보 업데이트
+            # TODO: In python 3.9, Channel = dumpedChannel | Channel
             for keyOfDump in dumpedChannel.keys():
                 Channel.setdefault(keyOfDump, dumpedChannel[keyOfDump])
-            return Channel     
+            return Channel
+    print('Invalid Channel: ', Channel['Source'], '('+Channel['ServiceId']+')')
     return None
 
 def requestEPG(Channel: Dict, config, SetDumpedChannels) -> Tuple:
@@ -76,9 +76,7 @@ def requestEPG(Channel: Dict, config, SetDumpedChannels) -> Tuple:
         if Channel:
             Channel['EPG'] = addEndTime(GetEPGFromSKB(Channel['ServiceId'], config['period']))      
             return (Channel, SetDumpedChannels)
-        
-        # ServiceId가 올바르지 않으면, 채널 정보 프린트
-        print('잘못된 ServiceId :', Channel['Name'], ", " , Channel["ServiceId"])
+
         return (None, SetDumpedChannels)
         
 
@@ -90,7 +88,6 @@ def requestEPG(Channel: Dict, config, SetDumpedChannels) -> Tuple:
         if Channel:
             Channel['EPG'] = addEndTime(GetEPGFromLGU(Channel['ServiceId'], config['fetch_period']))
             return (Channel, SetDumpedChannels)
-        print('잘못된 ServiceId :', Channel['Name'], ", " , Channel["ServiceId"])
         return (None, SetDumpedChannels)
 
 
@@ -102,7 +99,6 @@ def requestEPG(Channel: Dict, config, SetDumpedChannels) -> Tuple:
         if Channel:
             Channel['EPG'] = addEndTime(GetEPGFromDesktopNAVER(Channel['Query'])) if config['NAVER_more_info'] else addEndTime(GetEPGFromNAVER(Channel['ServiceId'], config['fetch_period']))
             return (Channel, SetDumpedChannels)
-        print('잘못된 ServiceId :', Channel['Name'], ", " , Channel["ServiceId"])
         return (None, SetDumpedChannels)
     
 
@@ -114,7 +110,7 @@ def requestEPG(Channel: Dict, config, SetDumpedChannels) -> Tuple:
         if Channel:
             Channel['EPG'] = addEndTime(GetEPGFromTVING(Channel['ServiceId'], config['fetch_period']))
             return (Channel, SetDumpedChannels)
-        print('잘못된 ServiceId :', Channel['Name'], ", " , Channel["ServiceId"])
+
         return (None, SetDumpedChannels)
 
 
@@ -126,7 +122,7 @@ def requestEPG(Channel: Dict, config, SetDumpedChannels) -> Tuple:
         if Channel:
             Channel['EPG'] = addEndTime(GetEPGFromWAVVE(Channel['ServiceId'], config['fetch_period']))
             return (Channel, SetDumpedChannels)
-        print('잘못된 ServiceId :', Channel['Name'], ", " , Channel["ServiceId"])
+
         return (None, SetDumpedChannels)
 
 
