@@ -29,6 +29,7 @@ jobs:
         
     - name: Request and Generate EPG XML
       run: |
+        pwd
         python epg2xml.py
     - name: Test with pytest
       run: |
