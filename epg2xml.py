@@ -5,21 +5,22 @@ import os
 import sys
 import json
 
-from DumpChannels.FromSKB import DumpChannelsFromSKB
-from DumpChannels.FromLGU import DumpChannelsFromLGU
-from DumpChannels.FromNAVER import DumpChannelsFromNAVER
-from DumpChannels.FromTVING import DumpChannelsFromTVING
-from DumpChannels.FromWAVVE import DumpChannelsFromWAVVE
+sys.path.append(os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
+from FromSKB import DumpChannelsFromSKB
+from FromLGU import DumpChannelsFromLGU
+from FromNAVER import DumpChannelsFromNAVER
+from FromTVING import DumpChannelsFromTVING
+from FromWAVVE import DumpChannelsFromWAVVE
 
-from GetEPG.FromDesktopNAVER import GetEPGFromDesktopNAVER
-from GetEPG.FromNAVER import GetEPGFromNAVER
-from GetEPG.FromSKB import GetEPGFromSKB
-from GetEPG.FromLGU import GetEPGFromLGU
-from GetEPG.FromTVING import GetEPGFromTVING
-from GetEPG.FromWAVVE import GetEPGFromWAVVE
+from FromDesktopNAVER import GetEPGFromDesktopNAVER
+from FromNAVER import GetEPGFromNAVER
+from FromSKB import GetEPGFromSKB
+from FromLGU import GetEPGFromLGU
+from FromTVING import GetEPGFromTVING
+from FromWAVVE import GetEPGFromWAVVE
 
-from GenerateXML.writeChannel import writeChannel
-from GenerateXML.writeProgram import writeProgram
+from writeChannel import writeChannel
+from writeProgram import writeProgram
 
 config = {
     'fetch_period': 2,
