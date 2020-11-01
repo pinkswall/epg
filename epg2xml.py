@@ -5,10 +5,21 @@ import os
 import sys
 import json
 
-from DumpChannels import DumpChannelsFromLGU, DumpChannelsFromNAVER, DumpChannelsFromSKB, DumpChannelsFromTVING, DumpChannelsFromWAVVE
-from GenerateXML import writeChannel, writeProgram
-from GetEPG import GetEPGFromDesktopNAVER, GetEPGFromNAVER, GetEPGFromLGU, GetEPGFromSKB, GetEPGFromTVING, GetEPGFromWAVVE
-#GetEPGFromKT
+from DumpChannels.FromSKB import DumpChannelsFromSKB
+from DumpChannels.FromLGU import DumpChannelsFromLGU
+from DumpChannels.FromNAVER import DumpChannelsFromNAVER
+from DumpChannels.FromTVING import DumpChannelsFromTVING
+from DumpChannels.FromWAVVE import DumpChannelsFromWAVVE
+
+from GetEPG.FromDesktopNAVER import GetEPGFromDesktopNAVER
+from GetEPG.FromNAVER import GetEPGFromNAVER
+from GetEPG.FromSKB import GetEPGFromSKB
+from GetEPG.FromLGU import GetEPGFromLGU
+from GetEPG.FromTVING import GetEPGFromTVING
+from GetEPG.FromWAVVE import GetEPGFromWAVVE
+
+from GenerateXML.writeChannel import writeChannel
+from GenerateXML.writeProgram import writeProgram
 
 config = {
     'fetch_period': 2,
