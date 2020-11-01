@@ -1,4 +1,5 @@
 from xml.etree.ElementTree import Element, SubElement, ElementTree, fromstring
+from datetime import datetime, timedelta, date
 from typing import Dict, List, Tuple
 import os
 import sys
@@ -12,10 +13,10 @@ from GetEPG import *
 config = {
     'fetch_period': 1,
     'path_to_channels': './Channels.json',
-    'path_to_dumps_dir': '/Dumps'
+    'path_to_dumps_dir': './Dumps'
 }
 
-__dirpath__ = os.path.dirname(os.path.realpath(sys.argv[0]))
+DIR = os.path.dirname(os.path.abspath(__file__)
 
 
 def addEndTime(EPGs):
@@ -128,7 +129,7 @@ def requestEPG(Channel: Dict, period: int, SetDumpedChannels) -> Tuple:
         return (None, SetDumpedChannels)
 
 
-# channels.json 읽기
+# Channels = Channels.json 
 try:
     with open(config['path_to_channels'], 'r', encoding='UTF-8') as file_json:
         Channels = json.load(file_json)
@@ -136,13 +137,14 @@ except Exception as e:
     print('채널 파일을 읽는 중 에러가 발생했습니다.')
     print(str(e))
 
+# 초기화
 SetDumpedChannels = None
 XmlChannels = []
 XmlPrograms = []
 
-# EPG2XML:STR
+# EPG 2 XML string
 for Channel in Channels:
-    # UpdatedChannel은 결여된 정보와 EPG가 추가된 Channel임.
+    # UpdatedChannel은 누락된 정보와 EPG가 추가된 Channel임
     UpdatedChannel, SetDumpedChannels = requestEPG(Channel=Channel, period=config['fetch_period'], SetDumpedChannels=SetDumpedChannels)
     if UpdatedChannel is not None:
         XmlChannels.append(writeChannel(channelInfo=Channel))
@@ -151,6 +153,7 @@ for Channel in Channels:
             XmlPrograms.append(writeProgram(Program, UpdatedChannel['Id']))
 
 
+# XML Structure
 tv = Element('tv', attrib={'generator-info-name': 'pink-epg'})
 for XmlChannel in XmlChannels:
     tv.append(fromstring(XmlChannel))
@@ -160,8 +163,8 @@ for XmlProgram in XmlPrograms:
 # Write XML
 ElementTree(tv).write("xmltv.xml", encoding="UTF-8", xml_declaration=True)
 
-# Write XML
-# TODO: 설정한 파일 path에 덤프 쓰기 
+# Write Dump
 for source in SetDumpedChannels:
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), source + '.json'), 'w', encoding='UTF-8') as jsonFile:
-        jsonFile.write(json.dumps(SetDumpedChannels[source], ensure_ascii=False, indent=2))
+    headers = [{'last update': datetime.now().strftime('%Y/%m/%d %H:%M:%S'), 'total': len(SetDumpedChannels[source])}]
+    with open(os.path.join(DIR, os.path.basename(config['path_to_dumps_dir']), source+'.json')), 'w', encoding='UTF-8') as jsonFile:
+        jsonFile.write(json.dumps(headers + SetDumpedChannels[source], ensure_ascii=False, indent=2))
