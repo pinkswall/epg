@@ -18,4 +18,4 @@
 
 - 1부, 2부 나뉠시 통합하는 옵션 추가 (자세한 내용은 [클릭](https://www.clien.net/service/board/cm_nas/12566572))
 
-## Things To Look for
+- prettify XML
