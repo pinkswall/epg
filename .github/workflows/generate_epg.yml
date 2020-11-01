@@ -15,8 +15,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        path: epg 
+
       
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
@@ -41,9 +40,10 @@ jobs:
         git config --local user.email 'action@github.com'
         git add xmltv.xml
         git commit "Automated Commit"
+        git push
         
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: main #${{ github.ref }}
+#     - name: Push changes
+#       uses: ad-m/github-push-action@master
+#       with:
+#         github_token: ${{ secrets.GITHUB_TOKEN }}
+#         branch: main #${{ github.ref }}
