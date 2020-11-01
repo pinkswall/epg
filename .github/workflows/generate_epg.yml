@@ -15,6 +15,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        path: epg 
       
     - name: Set up Python 3.9
       uses: actions/setup-python@v2
@@ -23,15 +25,15 @@ jobs:
 
     - name: Install dependencies
       run: |
+        python -VV
         python -m pip install --upgrade pip
         pip install beautifulsoup4 requests
         
     - name: Request and Generate EPG XML
       run: |
-        python epg2xml.py
-    - name: Test with pytest
-      run: |
-        echo "Ended"
+        pwd
+        ls
+        python -m epg2xml.py
         
     - name: Commit
       run: |
@@ -44,4 +46,4 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: epg #${{ github.ref }}
+        branch: main #${{ github.ref }}
