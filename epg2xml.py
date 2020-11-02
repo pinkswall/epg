@@ -178,9 +178,11 @@ for source in SetDumpedChannels:
     
     if os.path.isfile(dumps_abs_path) == True:
         print('덤프 생성 경로와 같은 이름의 파일이 있습니다.')
+        sys.exit(1)
 
     if os.path.isdir(dumps_abs_path) != True:
         print('해당 경로가 존재하지 않습니다.')
+        sys.exit(1)
     
     with open(os.path.join(DIR, os.path.basename(config['path_to_dumps_dir']), source+'.json'), 'w', encoding='UTF-8') as jsonFile:
         jsonFile.write(json.dumps(headers + SetDumpedChannels[source], ensure_ascii=False, indent=2))
