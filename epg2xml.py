@@ -4,6 +4,7 @@ from typing import Dict, List, Tuple
 import os
 import sys
 import json
+import logging
 
 from DumpChannels.FromSKB import DumpChannelsFromSKB
 from DumpChannels.FromLGU import DumpChannelsFromLGU
