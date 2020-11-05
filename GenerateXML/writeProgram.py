@@ -15,7 +15,7 @@ def writeProgram(programInfo: Dict, Id: str) -> str:
         'Credits'?: [ { 'Name': '이름', 'Type': '직종', 'Role'?: '역할' } ],
         'StartTime': 'YYYYMMDDhhmmss +0900',
         'EndTime': 'YYYYMMDDhhmmss +0900',
-        'IsRebroadcast'?: True | False,
+        'IsRebroadcast': True | False,
         'KCSC'?: '모든연령시청가' | '7세이상시청가' | '12세이상시청가' | '15세이상시청가' | '19세이상시청가'
     } \n
     @return xml string
@@ -43,7 +43,7 @@ def writeProgram(programInfo: Dict, Id: str) -> str:
 
     if 'Episode' in programInfo: SubElement(program, 'episode-num', attrib={'system': 'onscreen'}).text = programInfo['Episode']
 
-    if ('IsRebroadcast' in programInfo) and programInfo['IsRebroadcast']: SubElement(program, 'previously-shown')
+    if programInfo['IsRebroadcast']: SubElement(program, 'previously-shown')
 
     if 'KCSC' in programInfo: SubElement(SubElement(program, 'rating', attrib={'system': 'KCSC'}), 'value').text = programInfo['KCSC']
 
