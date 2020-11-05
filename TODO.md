@@ -20,4 +20,8 @@
 
 - 1부, 2부, 3부 등은 코멘트로 넘기기
 
+- 요청이 올바른지 확인하고 아니면 retry
+
+- https://search.daum.net/search?w=tv&q=검색어 활용
+
 - prettify XML
