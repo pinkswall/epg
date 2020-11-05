@@ -12,6 +12,7 @@ def writeChannel(channelInfo: Dict) -> str:
     } \n
     @return xml string
     """
+    
     if 'Id' not in channelInfo:
         channelInfo['Id'] = channelInfo['Name']
         
