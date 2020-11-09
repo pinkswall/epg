@@ -1,7 +1,9 @@
 from xml.etree.ElementTree import Element, SubElement, tostring
-from typing import Dict
+from typing import Dict, Optional, Union, List
 
-def writeProgram(programInfo: Dict, Id: str) -> str:
+
+
+def writeProgram(programInfo: Dict(str, Union(str, List[Dict])), Id: str) -> str:
     """
     프로그램 정보를 입력받아 xml형식으로 정리합니다. \n
     @param programInfo - \n
