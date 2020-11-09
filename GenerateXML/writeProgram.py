@@ -1,5 +1,5 @@
 from xml.etree.ElementTree import Element, SubElement, tostring
-from typing import Dict, Optional, Union, List
+from typing import Dict, Union, List
 
 
 
