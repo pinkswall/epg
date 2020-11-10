@@ -23,7 +23,7 @@ class Program(TypedDict):
 
 def writeProgram(programInfo: Program, Id: str) -> str:
     """
-    프로그램 정보를 입력받아 xml형식으로 정리합니다. \n
+    프로그램 정보를 입력받아 xmltv형식으로 정리합니다. \n
     :param programInfo: Program
     :param Id: str
     :return: str 
