@@ -125,6 +125,9 @@ def requestEPG(Channel: Dict, config, SetDumpedChannels) -> Tuple:
 
         return (None, SetDumpedChannels)
 
+    print("잘못된 Source")
+    sys.exit(1)
+
 
     # WAVVE
     if Channel['Source'] == "WAVVE":
