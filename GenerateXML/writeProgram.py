@@ -1,26 +1,32 @@
 from xml.etree.ElementTree import Element, SubElement, tostring
-from typing import Dict, Union, List
+from typing import Dict, Union, List, Optional, TypedDict, Literal
 
 
+class Credit(TypedDict):
+    Name: str
+    Type: str
+    Role: Optional[str]
 
-def writeProgram(programInfo: Dict(str, Union(str, List[Dict])), Id: str) -> str:
+class Program(TypedDict):
+    Title: str
+    Subtitle: Optional[str]
+    Icon_url: Optional[str]
+    Episode: Optional[str]
+    Description: Optional[str]
+    Category: Optional[str]
+    Credits: Optional[Credit]
+    StartTime: str
+    EndTime: str
+    IsRebroadcast: bool
+    KCSC: Optional[Literal['모든연령시청가', '7세이상시청가', '12세이상시청가', '15세이상시청가', '19세이상시청가']]
+
+
+def writeProgram(programInfo: Program, Id: str) -> str:
     """
     프로그램 정보를 입력받아 xml형식으로 정리합니다. \n
-    @param programInfo - \n
-    {
-        'Title': '제목',
-        'Subtitle'?: '부제목',
-        'Icon_url'?: 'https://ddns/path/to/icon',
-        'Episode'?: 'n회',
-        'Description'?: '~~하고 ~~하는 프로그램',
-        'Category'?: '카테고리',
-        'Credits'?: [ { 'Name': '이름', 'Type': '직종', 'Role'?: '역할' } ],
-        'StartTime': 'YYYYMMDDhhmmss +0900',
-        'EndTime': 'YYYYMMDDhhmmss +0900',
-        'IsRebroadcast': True | False,
-        'KCSC'?: '모든연령시청가' | '7세이상시청가' | '12세이상시청가' | '15세이상시청가' | '19세이상시청가'
-    } \n
-    @return xml string
+    :param programInfo: Program
+    :param Id: str
+    :return: str 
     """
 
     program = Element('programme', start=programInfo['StartTime'], stop=programInfo['EndTime'], channel=Id)
