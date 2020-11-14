@@ -1,6 +1,7 @@
 from xml.etree.ElementTree import Element, SubElement, ElementTree, fromstring
 from datetime import datetime, timedelta, date
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, TypedDict
+from collections import namedtuple
 import os
 import sys
 import json
@@ -22,7 +23,13 @@ from GetEPG.FromWAVVE import GetEPGFromWAVVE
 from GenerateXML.writeChannel import writeChannel
 from GenerateXML.writeProgram import writeProgram
 
-config = {
+class Config(TypedDict):
+    fetch_period: int
+    path_to_channels: str
+    path_to_dumps_dir: str
+    NAVER_more_info: bool
+
+config: Config = {
     'fetch_period': 2,
     'path_to_channels': './Channels.json',
     'path_to_dumps_dir': './Dumps',
@@ -162,7 +169,7 @@ for Channel in Channels:
         XmlChannels.append(writeChannel(channelInfo=Channel))
         for Program in UpdatedChannel['EPG']:
             if Program['Title'] is None: continue
-            XmlPrograms.append(writeProgram(Program, UpdatedChannel['Id']))
+            XmlPrograms.append(writeProgram(programInfo=Program, Id=UpdatedChannel['Id']))
 
 
 # XML Structure
@@ -176,17 +183,18 @@ for XmlProgram in XmlPrograms:
 ElementTree(tv).write("xmltv.xml", encoding="UTF-8", xml_declaration=True)
 
 # Write Dump
-for source in SetDumpedChannels:
-    headers = [ { 'last update': datetime.now().strftime('%Y/%m/%d %H:%M:%S'), 'total': len(SetDumpedChannels[source]) } ]
-    dumps_abs_path = os.path.join(DIR, os.path.basename(config['path_to_dumps_dir']))
-    
-    if os.path.isfile(dumps_abs_path) == True:
-        print('덤프 생성 경로와 같은 이름의 파일이 있습니다.')
-        sys.exit(1)
+if SetDumpedChannels != {}:
+    for source in SetDumpedChannels:
+        headers = [ { 'last update': datetime.now().strftime('%Y/%m/%d %H:%M:%S'), 'total': len(SetDumpedChannels[source]) } ]
+        dumps_abs_path = os.path.join(DIR, os.path.basename(config['path_to_dumps_dir']))
+        
+        if os.path.isfile(dumps_abs_path) == True:
+            print('덤프 생성 경로와 같은 이름의 파일이 있습니다.')
+            sys.exit(1)
 
-    if os.path.isdir(dumps_abs_path) != True:
-        print('해당 경로가 존재하지 않습니다.')
-        sys.exit(1)
-    
-    with open(os.path.join(DIR, os.path.basename(config['path_to_dumps_dir']), source+'.json'), 'w', encoding='UTF-8') as jsonFile:
-        jsonFile.write(json.dumps(headers + SetDumpedChannels[source], ensure_ascii=False, indent=2))
+        if os.path.isdir(dumps_abs_path) != True:
+            print('해당 경로가 존재하지 않습니다.')
+            sys.exit(1)
+        
+        with open(os.path.join(DIR, os.path.basename(config['path_to_dumps_dir']), source+'.json'), 'w', encoding='UTF-8') as jsonFile:
+            jsonFile.write(json.dumps(headers + SetDumpedChannels[source], ensure_ascii=False, indent=2))
