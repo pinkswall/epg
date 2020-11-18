@@ -1,5 +1,5 @@
 from xml.etree.ElementTree import Element, SubElement, tostring
-from typing import Dict, Union, List, Optional, TypedDict, Literal
+from typing import Optional, TypedDict, Literal
 
 
 class Credit(TypedDict):
@@ -23,10 +23,11 @@ class Program(TypedDict):
 
 def writeProgram(programInfo: Program, Id: str) -> str:
     """
-    프로그램 정보를 입력받아 xmltv형식으로 정리합니다. \n
-    :param programInfo: Program
-    :param Id: str
-    :return: str 
+    프로그램 정보를 입력받아 xmltv형식으로 정리합니다.
+
+    :param programInfo: Program \n
+    :param Id: str \n
+    :return: xml string
     """
 
     program = Element('programme', start=programInfo['StartTime'], stop=programInfo['EndTime'], channel=Id)
