@@ -20,7 +20,9 @@
 
 - 1부, 2부, 3부 등은 코멘트로 넘기기
 
-- 요청이 올바른지 확인하고 아니면 retry
+- 응답이 올바른지 확인하고 아니면 retry
+
+- epg리턴에 같은 구조체를 사용
 
 - https://search.daum.net/search?w=tv&q=검색어 활용
 
