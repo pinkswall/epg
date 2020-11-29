@@ -1,7 +1,6 @@
 from xml.etree.ElementTree import Element, ElementTree, fromstring
 from datetime import datetime
-from typing import Dict, List, Tuple, TypedDict
-from collections import namedtuple
+from typing import Dict, List, Tuple, TypedDict, Final
 import os
 import sys
 import json
@@ -29,7 +28,7 @@ class Config(TypedDict):
     path_to_dumps_dir: str
     NAVER_more_info: bool
 
-config: Config = {
+config: Final[Config] = {
     'fetch_period': 2,
     'path_to_channels': './Channels.json',
     'path_to_dumps_dir': './Dumps',
